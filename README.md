@@ -12,6 +12,11 @@ First it is necessary to add the permissions to use the Bluetooth in AndroidMani
 <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 ```
 
+To create the communication controller passes the context and Hadler:
+```java
+CommunicationBusinessLogic communicationBusinessLogic = new CommunicationBusinessLogic(this, handler);
+```
+
 Initially I'll demonstrate how to get the server communication. To do that Bluetooth should be visible without it is not possible to continue. To do this use case:
 ```java
 Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
@@ -39,6 +44,26 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 To begin with we Client using:
 ```java
 communicationBusinessLogic.startFoundDevices();
+```
+
+To send a message:
+```java
+communicationBusinessLogic.sendMessage(message);
+```
+
+To receiver a message:
+```java
+private Handler handler = new Handler() {
+	public void handleMessage(android.os.Message msg) {
+    		synchronized (msg) {
+        		switch (msg.what) {
+        			case Constants.MSG_BLUETOOTH:
+        				String msg = (String)(msg.obj);
+       					break;
+        		}
+    		}
+	};
+};
 ```
 
 To end communication exiting the application do:
