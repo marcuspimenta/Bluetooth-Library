@@ -26,7 +26,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 	switch (requestCode) {
 		case BT_VISIBLE:
-			if (resultCode == BT_TIMER_VISIBLE) {
+			if (resultCode == Constants.BT_TIMER_VISIBLE) {
 				communicationBusinessLogic.stopCommucanition();
 				communicationBusinessLogic.startServer();
 			} 
